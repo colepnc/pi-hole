@@ -4,7 +4,7 @@ netmask="255.255.255.0"
 gateway="192.168.14.1"
 dns="192.168.14.6"
 # Start the script proper
-# Update Ubuntu before starting unifi install, and install cron-apt/htop for maintenance purposes
+# Update Ubuntu before starting pi-hole install, and install cron-apt/htop for maintenance purposes
 apt-get update
 apt-get dist-upgrade -y
 apt-get install cron-apt htop -y
