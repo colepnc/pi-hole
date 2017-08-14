@@ -70,6 +70,7 @@ echo "Configure Ubuntu unencrypted, with automatic security updates and OpenSSH 
  https://github.com/pointandclicktulsa/pi-hole/raw/master/teleport_with_porn.zip
 
  See adlists.list on the repo for lists to add.
+ https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/adlists.list
  "
 
 # End log file
