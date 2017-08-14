@@ -19,3 +19,4 @@ echo "address $ip" >> /etc/network/interfaces
 echo "netmask $netmask" >> /etc/network/interfaces
 echo "gateway $gateway" >> /etc/network/interfaces
 echo "dns-nameservers $dns" >> /etc/network/interfaces
+reboot
