@@ -1,10 +1,4 @@
 # Set your static IP information in the variables below
-# Make sure to run "crontab -e" and add "0 7 * * * pihole -up"
-# To install pi-hole after this script: "curl -sSL https://install.pi-hole.net | bash"
-# Import "https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/teleport_with_porn.zip" for porn blocking
-# aka clients with no paid OpenDNS. "https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/teleport.zip" to exclude porn blocking.
-# Also run "https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/BlockPage.sh" to make the blocking more user-friendly
-# Make sure to customize '/var/phbp.ini' then "sudo service lighttpd force-reload" for the client.
 ip="192.168.1.22"
 netmask="255.255.255.0"
 gateway="192.168.1.1"

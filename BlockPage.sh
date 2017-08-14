@@ -8,5 +8,3 @@ sudo chmod 755 "$html/index.php"
 [ ! -f "/etc/lighttpd/conf-enabled/phbp.conf" ] && echo -e '# Pi-hole "server.error-handler-404" override\nurl.rewrite-once = ( "pihole/index.php" => "/index.php" )' | sudo tee /etc/lighttpd/conf-enabled/phbp.conf
 echo "Done! Please edit '/var/phbp.ini' to customise your install"
 sudo service lighttpd force-reload
-
-#

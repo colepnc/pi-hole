@@ -49,5 +49,21 @@ Set-VMFirmware -VMName $VMName -EnableSecureBoot Off
 Start-VM -Name $VMName
 vmconnect $ServerName $VMName
 
+echo "Configure Ubuntu unencrypted, with automatic security updates and OpenSSH server. Inside the VM, run Pi-Hole.sh first
+ (wget and chmod +x the two scripts, also download the appropriate teleport.zip)
+ After Pi-Hole.sh install Pi-Hole 'curl -sSL https://install.pi-hole.net | bash'
+ Then run BlockPage.sh
+ Customize files for the Blocking page as needed 'sudo nano /var/phbp.ini' then 'sudo service lighttpd force-reload'
+ Import the appropritae teleport.zip
+ Create crontab job to update Pi-Hole 'crontab -e' '0 7 * * * pihole -up'
+ Run 'pihole -g'
+ Set the domain controller to forward to the Pi-Hole.
+ Relevant links to wget:
+ https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/Pi-Hole.sh
+ https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/BlockPage.sh
+ https://github.com/pointandclicktulsa/pi-hole/raw/master/teleport.zip
+ https://github.com/pointandclicktulsa/pi-hole/raw/master/teleport_with_porn.zip
+ "
+
 # End log file
 Stop-Transcript
