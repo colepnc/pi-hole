@@ -19,17 +19,4 @@ echo "address $ip" >> /etc/network/interfaces
 echo "netmask $netmask" >> /etc/network/interfaces
 echo "gateway $gateway" >> /etc/network/interfaces
 echo "dns-nameservers $dns" >> /etc/network/interfaces
-# Iptables hardening to only allow the ports you need
-iptables -F
-iptables -P INPUT DROP
-iptables -A INPUT -i lo -p all -j ACCEPT
-iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
-iptables -A INPUT -p udp -m udp --dport 53 -j ACCEPT
-iptables -A INPUT -p tcp -m tcp --dport 53 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
-iptables -A INPUT -j DROP
-# Iptables persistance through reboot
-su -c "iptables-save > /etc/iptables.conf"
-sed -i "13i iptables-restore < /etc/iptables.conf" /etc/rc.local
 reboot
