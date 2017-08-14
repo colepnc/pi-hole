@@ -34,7 +34,7 @@ echo "Ubuntu Server 16.04.3 LTS ISO already exists!"
 }
 
 # Create VHDX, VM, attach vSwitch, mount Ubuntu ISO
-New-VHD -Path $VHDpath -SizeBytes 50GB -Fixed
+New-VHD -Path $VHDpath -SizeBytes 20GB -Fixed
 New-VM -Name $VMName -MemoryStartupBytes 2048MB -Generation 2
 Add-VMHardDiskDrive -VMName $VMName -Path $VHDpath
 Add-VMDvdDrive -VMName $VMName
