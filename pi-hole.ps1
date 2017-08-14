@@ -36,20 +36,24 @@ echo "Ubuntu Server 16.04.3 LTS ISO already exists!"
 # Create VHDX, VM, attach vSwitch, mount Ubuntu ISO
 New-VHD -Path $VHDpath -SizeBytes 20GB -Fixed
 New-VM -Name $VMName -MemoryStartupBytes 2048MB -Generation 2
+Set-VMMemory -VMName pi-hole -DynamicMemoryEnabled 0
 Add-VMHardDiskDrive -VMName $VMName -Path $VHDpath
 Add-VMDvdDrive -VMName $VMName
 Set-VMDvdDrive -VMName $VMName -Path $ISO
+$dvd = Get-VMDvdDrive -VMName $VMName
 if ($VMSwitch -ne $null) {
   Get-VMNetworkAdapter -VMName $VMName |
     Connect-VMNetworkAdapter -SwitchName $VMSwitch
 }
-Set-VMFirmware -VMName $VMName -EnableSecureBoot Off
+Set-VMFirmware -VMName $VMName -EnableSecureBoot Off -FirstBootDevice $dvd
+Set-VM -Name $VMName -CheckpointType Production -AutomaticStartAction Start -AutomaticCheckpointsEnabled 0
+Set-VMProcessor -VMName $VMName -Count 4
 
 # Start and connect to VM
 Start-VM -Name $VMName
 vmconnect $ServerName $VMName
 
-echo "Configure Ubuntu unencrypted, with automatic security updates and OpenSSH server. Inside the VM, run Pi-Hole.sh first
+echo "Configure Ubuntu unencrypted, with automatic security updates and OpenSSH server, hostname pi-hole, username pi-hole. Inside the VM, run Pi-Hole.sh first
  (wget and chmod +x the two scripts, also download the appropriate teleport.zip)
  After Pi-Hole.sh install Pi-Hole 'curl -sSL https://install.pi-hole.net | bash'
  Then run BlockPage.sh
@@ -61,6 +65,7 @@ echo "Configure Ubuntu unencrypted, with automatic security updates and OpenSSH 
  Relevant links to wget:
  https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/Pi-Hole.sh
  https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/BlockPage.sh
+ Relevant to download on Hyper-V host or management PC:
  https://github.com/pointandclicktulsa/pi-hole/raw/master/teleport.zip
  https://github.com/pointandclicktulsa/pi-hole/raw/master/teleport_with_porn.zip
  "
