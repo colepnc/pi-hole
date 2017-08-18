@@ -22,8 +22,8 @@ https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
 https://hosts-file.net/ad_servers.txt
 
 
-##from https://v.firebog.net/hosts/lists.php?type=tick, blocks everything and porn! This is the verified false
-##positive free list
+##from https://v.firebog.net/hosts/lists.php?type=tick, blocks everything and porn!
+##Lots of false positives, like technet and autodesk stuff. Usually don't use this.
 https://hosts-file.net/grm.txt
 https://reddestdream.github.io/Projects/MinimalHosts/etc/MinimalHostsBlocker/minimalhosts
 https://raw.githubusercontent.com/StevenBlack/hosts/master/data/KADhosts/hosts
