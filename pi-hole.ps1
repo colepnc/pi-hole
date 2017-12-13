@@ -53,7 +53,9 @@ Set-VMProcessor -VMName $VMName -Count 4
 Start-VM -Name $VMName
 vmconnect $ServerName $VMName
 
-echo "Configure Ubuntu unencrypted, with automatic security updates and OpenSSH server, hostname pi-hole, username pi-hole. Inside the VM, run Pi-Hole.sh first
+echo "
+ Pi-Hole Block Page is discontinued, find a new project! https://github.com/WaLLy3K/Pi-hole-Block-Page/
+ Configure Ubuntu unencrypted, with automatic security updates and OpenSSH server, hostname pi-hole, username pi-hole. Inside the VM, run Pi-Hole.sh first
  (wget and chmod +x the two scripts, also download the appropriate teleport.zip)
  After Pi-Hole.sh install Pi-Hole 'curl -sSL https://install.pi-hole.net | bash'
  Then run BlockPage.sh

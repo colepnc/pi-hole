@@ -7,11 +7,7 @@ dns="192.168.1.1"
 # Update Ubuntu before starting pi-hole install, and install cron-apt/htop for maintenance purposes
 apt-get update
 apt-get dist-upgrade -y
-apt-get install cron-apt htop -y
-apt-get install linux-virtual-lts-xenial -y
-apt-get install linux-tools-virtual-lts-xenial -y
-apt-get install linux-cloud-tools-virtual-lts-xenial -y
-apt-get install php-zip -y
+apt-get install cron-apt htop linux-virtual-lts-xenial linux-tools-virtual-lts-xenial install linux-cloud-tools-virtual-lts-xenial php-zip -y
 # Set static IP, this may need changed if using ipv6
 sed -i -e 's/iface eth0 inet dhcp/#iface eth0 inet dhcp/g' /etc/network/interfaces
 echo "iface eth0 inet static" >> /etc/network/interfaces
