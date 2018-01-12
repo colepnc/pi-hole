@@ -9,6 +9,9 @@ Start-Transcript -path C:\Pi-Hole.txt -append
 # If you have multiple External vSwitches you'll probably also have to manually input the name of the desired vSwitch in $VMSwitch
 $ISO = "C:\admin\iso\ubuntu-16.04.3-server-amd64.iso"
 $ISOPath = "c:\admin\ISO\"
+$URL = "http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-server-amd64.iso"
+$start_time = Get-Date
+$WebClient = New-Object System.Net.WebClient
 $VMName = "Pi-Hole"
 $VHDpath = "c:\Hyper-V\$VMName.vhdx"
 $ServerName = "$env:computername"
@@ -27,7 +30,8 @@ echo "ISO directory already exists!"
 # Download Ubuntu ISO
 If (!(Test-Path $ISO)) {
 echo "Downloading Ubuntu Server 16.04.3 LTS ISO"
-Invoke-WebRequest "http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-server-amd64.iso" -UseBasicParsing -OutFile "$ISO"
+$WebClient.DownloadFile($url, $output)
+Write-Output "Time Taken: $((Get-Date).Subtract($start_time).seconds) second(s)"
 }
 else {
 echo "Ubuntu Server 16.04.3 LTS ISO already exists!"
