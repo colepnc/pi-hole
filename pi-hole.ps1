@@ -13,7 +13,7 @@ $URL = "http://releases.ubuntu.com/16.04.3/ubuntu-16.04.3-server-amd64.iso"
 $start_time = Get-Date
 $WebClient = New-Object System.Net.WebClient
 $VMName = "Pi-Hole"
-$VHDpath = "c:\Hyper-V\$VMName.vhdx"
+$VHDpath = "c:\Hyper-V\Virtual Hard Disks\$VMName.vhdx"
 $ServerName = "$env:computername"
 $VMSwitch = Get-VMSwitch -SwitchType External |
               Select-Object -First 1 |
