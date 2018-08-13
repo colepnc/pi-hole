@@ -2,14 +2,14 @@
 $ErrorActionPreference = "SilentlyContinue"
 Stop-Transcript | out-null
 $ErrorActionPreference = "Continue"
-Start-Transcript -path C:\admin\Pi-Hole_log.txt -append
+Start-Transcript -path C:\Pi-Hole.txt -append
 
 # Script variables, change as needed
 # If you want to run this against a remote Hyper-V host, change $ServerName to a proper computer name.
 # If you have multiple External vSwitches you'll probably also have to manually input the name of the desired vSwitch in $VMSwitch
-$ISO = "C:\admin\iso\ubuntu-18.04-server-amd64.iso"
+$ISO = "C:\admin\iso\ubuntu-16.04.4-server-amd64.iso"
 $ISOPath = "c:\admin\ISO\"
-$URL = "http://cdimage.ubuntu.com/releases/18.04/release/ubuntu-18.04-server-amd64.iso"
+$URL = "http://releases.ubuntu.com/16.04.4/ubuntu-16.04.4-server-amd64.iso"
 $start_time = Get-Date
 $WebClient = New-Object System.Net.WebClient
 $VMName = "Pi-Hole"
@@ -29,29 +29,29 @@ echo "ISO directory already exists!"
 
 # Download Ubuntu ISO
 If (!(Test-Path $ISO)) {
-echo "Downloading Ubuntu Server 18.04 LTS ISO"
+echo "Downloading Ubuntu Server 16.04.4 LTS ISO"
 $WebClient.DownloadFile($url, $ISO)
 Write-Output "Time Taken: $((Get-Date).Subtract($start_time).seconds) second(s)"
 }
 else {
-echo "Ubuntu Server 18.04 LTS ISO already exists!"
+echo "Ubuntu Server 16.04.4 LTS ISO already exists!"
 }
 
 # Create VHDX, VM, attach vSwitch, mount Ubuntu ISO
 New-VHD -Path $VHDpath -SizeBytes 20GB -Fixed
 New-VM -Name $VMName -MemoryStartupBytes 2048MB -Generation 2
-Set-VMMemory -VMName $VMName -DynamicMemoryEnabled 0
+Set-VMMemory -VMName pi-hole -DynamicMemoryEnabled 0
 Add-VMHardDiskDrive -VMName $VMName -Path $VHDpath
-Add-VMDvdDrive -VMName $VMName -Path $ISO
+Add-VMDvdDrive -VMName $VMName
+Set-VMDvdDrive -VMName $VMName -Path $ISO
+$dvd = Get-VMDvdDrive -VMName $VMName
 if ($VMSwitch -ne $null) {
   Get-VMNetworkAdapter -VMName $VMName |
     Connect-VMNetworkAdapter -SwitchName $VMSwitch
 }
-$dvd = Get-VMDvdDrive -VMName $VMName
 Set-VMFirmware -VMName $VMName -EnableSecureBoot Off -FirstBootDevice $dvd
-Set-VM -Name $VMName -CheckpointType Production -AutomaticStartAction Start -AutomaticCheckpointsEnabled 0 -AutomaticStopAction ShutDown
-Set-VMProcessor -VMName $VMName -Count 1
-Enable-VMIntegrationService -Name "Guest Service Interface" -VMName $VMName
+Set-VM -Name $VMName -CheckpointType Production -AutomaticStartAction Start -AutomaticCheckpointsEnabled 0
+Set-VMProcessor -VMName $VMName -Count 4
 
 # Start and connect to VM
 Start-VM -Name $VMName
