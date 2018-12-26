@@ -61,15 +61,9 @@ echo "
  Configure Ubuntu unencrypted, with automatic security updates and OpenSSH server, hostname pi-hole, username pi-hole. Inside the VM, run Pi-Hole.sh first
  (wget and chmod +x the script)
  After Pi-Hole.sh install Pi-Hole 'curl -sSL https://install.pi-hole.net | bash'
- Customize files for the Blocking page as needed 'sudo nano /var/phbp.ini' then 'sudo service lighttpd force-reload'
  Create crontab job to update Pi-Hole 'crontab -e' '0 7 * * * pihole -up'
- Run 'pihole -g'
- Set the domain controller to forward to the Pi-Hole.
- Relevant links to wget:
- https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/Pi-Hole.sh
-
- See adlists.list on the repo for lists to add.
- https://raw.githubusercontent.com/pointandclicktulsa/pi-hole/master/adlists.list
+ add 'BLOCKINGMODE=IP' to /etc/pihole/pihole-FTL.conf
+ Run 'sudo pihole restartdns'
  "
 
 # End log file
